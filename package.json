@@ -4,6 +4,12 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "puck",
+    "puck-utils",
+    "typescript",
+    "type-inference"
+  ],
   "author": "eyueldk",
   "repository": {
     "type": "git",
