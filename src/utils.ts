@@ -16,6 +16,9 @@ export function defineComponent<
   F extends NonNullable<ComponentConfig["fields"]>
 >(
   config: Overwrite<ComponentConfig & { fields: F }, {
+    defaultProps?: {
+      [K in keyof F]?: InferField<F[K]>
+    },
     render: PuckComponent<{
       [K in keyof F]: InferField<F[K]>
     }>

@@ -20,6 +20,10 @@ const MyComponent = defineComponent({
     title: { type: "text" },
     count: { type: "number" }
   },
+  // default props typing is inferred
+  defaultProps: {
+    title: "Hello, Puck!"
+  },
   render({ title, count }) {
     // title is inferred as string, count as number
     // return whatever your Puck runtime expects (this example returns null)
