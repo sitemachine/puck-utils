@@ -1,0 +1,35 @@
+{
+  "name": "@sitemachine/puck-utils",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "eyueldk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sitemachine/puck-utils"
+  },
+  "homepage": "https://github.com/sitemachine/puck-utils",
+  "module": "./dist/index.js",
+  "peerDependencies": {
+    "typescript": "^5",
+    "@measured/puck": "^0.20.2"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "prepublishOnly": "bun run build"
+  },
+  "type": "module",
+  "devDependencies": {
+    "tsdown": "0.14.2"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ]
+}
