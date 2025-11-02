@@ -17,7 +17,7 @@ export function defineComponent<
 >(
   config: Overwrite<ComponentConfig & { fields: F }, {
     defaultProps?: {
-      [K in keyof F]?: InferField<F[K]>
+      [K in keyof F]?: InferField<F[K]> | (() => InferField<F[K]>)
     },
     render: PuckComponent<{
       [K in keyof F]: InferField<F[K]>
