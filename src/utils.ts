@@ -13,7 +13,7 @@ import type {
 type Overwrite<T, U> = Omit<T, keyof U> & U;
 
 export function defineComponent<
-  F extends NonNullable<ComponentConfig["fields"]>
+  const F extends NonNullable<ComponentConfig["fields"]>
 >(
   config: Overwrite<ComponentConfig & { fields: F }, {
     defaultProps?: {

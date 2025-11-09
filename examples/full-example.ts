@@ -36,8 +36,9 @@ defineComponent({
       type: "select",
       options: [
         { label: "Option 1", value: "One" }, 
-        { label: "Option 2", value: 2 }
-      ] 
+        { label: "Option 2", value: "Two" },
+        { label: "Option 3", value: 3 }
+      ]
     },
     radio: { 
       type: "radio", 
@@ -55,7 +56,7 @@ defineComponent({
   defaultProps: {
     number: 42,
     text: "Hello, Puck!",
-    select: "Random",
+    select: "One",
   },
   render({
     number,
