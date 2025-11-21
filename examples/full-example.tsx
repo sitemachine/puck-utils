@@ -1,0 +1,86 @@
+import "@measured/puck/puck.css";
+import { Puck, type Config, type CustomField } from "@measured/puck";
+import { defineComponent } from "../src";
+
+const Component = defineComponent({
+  fields: {
+    number: {
+      type: "number"
+    },
+    text: {
+      type: "text",
+    },
+    textarea: {
+      type: "textarea",
+    },
+    slot: {
+      type: "slot"
+    },
+    array: {
+      type: "array",
+      arrayFields: {
+        a: { type: "text" },
+        b: { type: "number" }
+      }
+    },
+    object: {
+      type: "object",
+      objectFields: {
+        name: { type: "text" },
+        height: { type: "number" }
+      }
+    },
+    select: {
+      type: "select",
+      options: [
+        { label: "Option 1", value: "One" },
+        { label: "Option 2", value: "Two" },
+        { label: "Option 3", value: 3 }
+      ]
+    },
+    radio: {
+      type: "radio",
+      options: [
+        { label: "Option 1", value: "One" },
+        { label: "Option 2", value: 2 },
+      ],
+    },
+    custom: {
+      type: "custom",
+      render: () => <div>Custom Field</div>,
+    } satisfies CustomField<string>
+  },
+  // default Props are inferred from fields
+  defaultProps: {
+    number: 42,
+    text: "Hello, Puck!",
+    select: "One",
+  },
+  render({
+    number,
+    text,
+    textarea,
+    slot,
+    array,
+    object,
+    select,
+    radio,
+    custom
+  }) {
+    return (
+      <div>Hello</div>
+    );
+  }
+});
+
+const config: Config = {
+  components: {
+    Component,
+  }
+}
+
+export function Example() {
+  return (
+    <Puck config={config} data={{}} />
+  );
+}

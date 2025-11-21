@@ -1,6 +1,6 @@
 {
   "name": "@sitemachine/puck-utils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "publishConfig": {
     "access": "public"
   },
@@ -22,12 +22,17 @@
     "@measured/puck": "^0.20.2"
   },
   "scripts": {
+    "dev": "vite examples",
     "build": "tsdown",
     "prepublishOnly": "bun run build"
   },
   "type": "module",
   "devDependencies": {
-    "tsdown": "0.14.2"
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "tsdown": "0.14.2",
+    "vite": "^7.2.2"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,5 +42,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "react-dom": "^19.2.0"
+  }
 }

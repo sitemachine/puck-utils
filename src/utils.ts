@@ -1,13 +1,11 @@
-import type { 
-  ArrayField, 
-  ComponentConfig, 
-  CustomField, 
-  Field, 
-  ObjectField, 
-  PuckComponent, 
-  RadioField, 
-  SelectField, 
-  Slot 
+import type {
+  ArrayField,
+  ComponentConfig,
+  CustomField,
+  Field,
+  ObjectField,
+  PuckComponent,
+  Slot
 } from "@measured/puck";
 
 type Overwrite<T, U> = Omit<T, keyof U> & U;
@@ -17,36 +15,40 @@ export function defineComponent<
 >(
   config: Overwrite<ComponentConfig & { fields: F }, {
     defaultProps?: {
-      [K in keyof F]?: InferField<F[K]> | (() => InferField<F[K]>)
+      [K in keyof F]?: InferFieldValue<F[K]> | (() => InferFieldValue<F[K]>)
     },
     render: PuckComponent<{
-      [K in keyof F]: InferField<F[K]>
+      [K in keyof F]: InferFieldValue<F[K]>
     }>
   }>
 ) {
   return config;
 }
 
-export type InferField<T extends Field> = (
+export type InferFieldValue<T extends Field> = (
   T["type"] extends "text" ? string :
   T["type"] extends "textarea" ? string :
   T["type"] extends "number" ? number :
   T["type"] extends "slot" ? Slot :
   T["type"] extends "external" ? any :
-  T["type"] extends "array" ? InferArrayField<T> :
-  T["type"] extends "object" ? InferObjectField<T> :
-  T["type"] extends "select" ? InferSelectField<T> :
-  T["type"] extends "radio" ? InferRadioField<T> :
-  T["type"] extends "custom" ? InferCustomField<T> :
+  T["type"] extends "array" ? InferArrayFieldValue<T> :
+  T["type"] extends "object" ? InferObjectFieldValue<T> :
+  T["type"] extends "select" ? InferSelectFieldValue<T> :
+  T["type"] extends "radio" ? InferRadioFieldValue<T> :
+  T["type"] extends "custom" ? InferCustomFieldValue<T> :
   any
 );
 
-type InferArrayField<T> = T extends ArrayField ? Array<{ [K in keyof T["arrayFields"]]: InferField<T["arrayFields"][K]> }> : never;
+type InferArrayFieldValue<T> = T extends ArrayField ? Array<{ [K in keyof T["arrayFields"]]: InferFieldValue<T["arrayFields"][K]> }> : never;
 
-type InferObjectField<T> = T extends ObjectField ? { [K in keyof T["objectFields"]]: InferField<T["objectFields"][K]> } : never;
+type InferObjectFieldValue<T> = T extends ObjectField ? { [K in keyof T["objectFields"]]: InferFieldValue<T["objectFields"][K]> } : never;
 
-type InferSelectField<T> = T extends SelectField ? T["options"][number]["value"] : never;
+type InferSelectFieldValue<T> = T extends { options: readonly (infer R)[] }
+  ? R extends { value: infer V } ? V : never
+  : never;
 
-type InferRadioField<T> = T extends RadioField ? T["options"][number]["value"] : never;
+type InferRadioFieldValue<T> = T extends { options: readonly (infer R)[] }
+  ? R extends { value: infer V } ? V : never
+  : never;
 
-type InferCustomField<T> = T extends CustomField<infer V> ? V : never;
+type InferCustomFieldValue<T> = T extends CustomField<infer V> ? V : never;

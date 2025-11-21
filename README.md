@@ -2,7 +2,7 @@
 
 Utility helpers for teams building on the Puck editor. The package ships TypeScript-first APIs that make it easier to wire up custom components and author richer editing experiences. It currently focuses on stronger type inference for component definitions, with additional utilities planned.
 
-### Install
+## Install
 
 Install alongside `@measured/puck` using your preferred package manager:
 
@@ -10,7 +10,7 @@ Install alongside `@measured/puck` using your preferred package manager:
 npm install @sitemachine/puck-utils @measured/puck
 ```
 
-### Usage
+## Usage
 
 ```typescript
 import { defineComponent } from "@sitemachine/puck-utils";
@@ -34,12 +34,25 @@ const MyComponent = defineComponent({
 export default MyComponent;
 ```
 
-### Current features
+## InferFieldValue
 
-- `defineComponent` provides full type inference for `ComponentConfig` fields and render props.
-- Designed to compose with existing Puck editor workflows; more utilities will be added over time.
+The `InferFieldValue` type utility allows you to extract the TypeScript type for any Puck field configuration. This is useful when you need to work with field values outside of `defineComponent`:
 
-### Notes
+```typescript
+import { InferFieldValue } from "@sitemachine/puck-utils";
 
-- This repository ships type-safe helpers only — runtime behavior still depends on your Puck editor setup.
+// Infer type from a field definition
+type TitleField = { type: "text" };
+type TitleValue = InferFieldValue<TitleField>; // string
 
+type SelectField = {
+  type: "select";
+  options: [
+    { label: "Option 1", value: "one" },
+    { label: "Option 2", value: 2 }
+  ];
+};
+type SelectValue = InferFieldValue<SelectField>; // "one" | 2
+```
+
+`InferFieldValue` supports all Puck field types including `text`, `textarea`, `number`, `select`, `radio`, `array`, `object`, `custom`, `slot`, and `external`.
